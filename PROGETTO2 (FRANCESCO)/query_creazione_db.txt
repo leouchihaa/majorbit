@@ -1,0 +1,61 @@
+-- Creazione della tabella Eventi
+CREATE TABLE Eventi (
+    evento_id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_evento VARCHAR(255) NOT NULL,
+    data_inizio DATE NOT NULL,
+    data_fine DATE NOT NULL,
+    descrizione TEXT
+);
+
+-- Creazione della tabella Sessioni
+CREATE TABLE Sessioni (
+    sessione_id INT AUTO_INCREMENT PRIMARY KEY,
+    evento_id INT NOT NULL,
+    nome_sessione VARCHAR(50) NOT NULL,
+    data DATE NOT NULL,
+    ora_inizio TIME NOT NULL,
+    ora_fine TIME NOT NULL,
+    FOREIGN KEY (evento_id) REFERENCES Eventi(evento_id)
+);
+
+-- Creazione della tabella Dipendenti
+CREATE TABLE Dipendenti (
+    dipendente_id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cognome VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    altri_dati_dipendente TEXT
+);
+
+-- Creazione della tabella Partecipazioni
+CREATE TABLE Partecipazioni (
+    partecipazione_id INT AUTO_INCREMENT PRIMARY KEY,
+    evento_id INT NOT NULL,
+    dipendente_id INT NOT NULL,
+    sessione_id INT NOT NULL,
+    check_in DATETIME,
+    check_out DATETIME,
+    ore_presenza DECIMAL(5,2),
+    percentuale_presenza DECIMAL(5,2),
+    FOREIGN KEY (evento_id) REFERENCES Eventi(evento_id),
+    FOREIGN KEY (dipendente_id) REFERENCES Dipendenti(dipendente_id),
+    FOREIGN KEY (sessione_id) REFERENCES Sessioni(sessione_id)
+);
+
+-- Creazione della tabella Veicoli
+CREATE TABLE Veicoli (
+    veicolo_id INT AUTO_INCREMENT PRIMARY KEY,
+    targa VARCHAR(20) UNIQUE NOT NULL,
+    modello VARCHAR(100),
+    è_aziendale BOOLEAN NOT NULL
+);
+
+-- Creazione della tabella Trasporti
+CREATE TABLE Trasporti (
+    trasporto_id INT AUTO_INCREMENT PRIMARY KEY,
+    partecipazione_id INT NOT NULL,
+    veicolo_id INT,
+    a_piedi BOOLEAN NOT NULL,
+    FOREIGN KEY (partecipazione_id) REFERENCES Partecipazioni(partecipazione_id),
+    FOREIGN KEY (veicolo_id) REFERENCES Veicoli(veicolo_id)
+);

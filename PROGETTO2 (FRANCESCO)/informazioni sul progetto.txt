@@ -1,0 +1,42 @@
+Elementi da inserire:
+
+	GESTIONE DIPENDENTI: (stessi dipendenti del progetto precedente)
+		INFORMAZIONI SUL DIPENDENTE INTERESSATO (relative al database del progetto precedente)
+		PRENOTAZIONE DEGLI EVENTI
+		DETTAGLI SULLE PARTECIPAZIONI AGLI EVENTI
+		ORE DI PARTECIPAZIONE TOTALE AGLI EVENTI (anche in percentuale)
+
+	VEICOLI (lista dei veicoli aziendali utilizzabili per il trasporto agli eventi, relativi al progetto precedente)
+
+	REGISTRAZIONE E LOGIN (possono registrarsi solo i dipendenti inseriti nel database del progetto precedente)
+
+	GESITONE EVENTI:
+		TABELLA DEGLI EVENTI
+		REGISTRAZIONE NUOVO EVENTO
+		DATA / DATE (se di più giorni)
+		DIVISIONE EVENTI IN 3 SESSIONI (colazione, pranzo e cena, ogni sessione con i corrispettivi orari)
+		CHECKIN-CHECKOUT (relativi al singolo dipendente)
+		CHECK DELLA TARGA
+
+	DATABASE + BACKUP (contenenti tutti i dati necessari)
+
+
+Il database dovrà contenere le seguenti tabelle:
+	
+	EVENTI
+	SESSIONI (una sessione può essere di tipo colazione, pranzo o cena)
+	DIPENDENTI
+	PARTECIPAZIONI (ogni partecipazione registra il numero di ore totali in base ai checkin-checkout)
+	VEICOLI AZIENDALI
+	TABELLA TRASPORTI (ogni trasporto ha un id di riconoscimento ed è relativa a una partecipazione. può essere con veicolo aziendale e targa oppure a piedi)
+	PRENOTAZIONI
+
+
+
+
+
+
+"creare tabella eventi, registrazione eventi, creare un evento, questo evento deve avere una data se è di un giorno o più date se è di più giorni, capire come strutturare le tabelle, l'evento può avere le sessioni, il giorno x ci saranno 3 sessioni (colazione, pranzo, cena) con i corrispettivi orari (per giorni).
+vuole che a questi eventi possano registrarsi solo i miei dipendenti, interfacciati con quelli dell'altro progetto. quindi creare un nuovo db che deve andare a prendere i dati sull'altra tabella dipendenti dell'altro progetto, vuole vedere quel dipendente quanto ha partecipato a quella sessione in quel determinato giorno, evento cetriolo (con data, dalle 9 alle 17, sarà diviso in 3 sessioni (col9-9:15, pranzo 13-13:30, cena 20-20:30) quando si fa la registrazione si deve verificare se esiste sul db, ci deve essere una connessione col db gestionale (altro db). ogni singolo dipendente deve vedere quante ore ha partecipato, quindi vuole un check in e un check out, può collegarsi a ore tot 9 check in e 17 check out, totale ore di presenza in percentuale.
+il giorno dell'evento deve essere registrata anche la targa del veicolo, se viene col veicolo deve essere registrato il veicolo, se viene a piedi o no. deve essere una macchina aziendale.
+db di backup".

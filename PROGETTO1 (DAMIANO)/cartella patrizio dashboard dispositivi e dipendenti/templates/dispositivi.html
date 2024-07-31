@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Gestione Dispositivi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Gestione Dispositivi</h1>
+         <!-- Link al dashboard -->
+        <section class="mt-4">
+            <a href="/" class="btn btn-secondary">Torna al Dashboard</a>
+        </section>
+		
+		   <!-- Form per filtrare dispositivi -->
+        <section class="mt-4">
+            <h2>Filtra Dispositivi</h2>
+            <form action="/dispositivi" method="get" class="form-inline">
+                <div class="form-group mb-2">
+                    <label for="filtro_dispositivo" class="sr-only">Dispositivo</label>
+                    <input type="text" class="form-control" id="filtro_dispositivo" name="dispositivo" placeholder="Dispositivo">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="filtro_srn_iccid" class="sr-only">SRN/ICCID</label>
+                    <input type="text" class="form-control" id="filtro_srn_iccid" name="srn_iccid" placeholder="SRN/ICCID">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="filtro_num_aziendale" class="sr-only">Numero Aziendale</label>
+                    <input type="text" class="form-control" id="filtro_num_aziendale" name="num_aziendale" placeholder="Numero Aziendale">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="filtro_data_acquisto" class="sr-only">Data Acquisto</label>
+                    <input type="date" class="form-control" id="filtro_data_acquisto" name="data_acquisto">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="filtro_scad_garanzia" class="sr-only">Scadenza Garanzia</label>
+                    <input type="date" class="form-control" id="filtro_scad_garanzia" name="scad_garanzia">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="filtro_ram" class="sr-only">RAM</label>
+                    <input type="text" class="form-control" id="filtro_ram" name="ram" placeholder="RAM">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="filtro_archiviazione" class="sr-only">Archiviazione</label>
+                    <input type="text" class="form-control" id="filtro_archiviazione" name="archiviazione" placeholder="Archiviazione">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="filtro_processore" class="sr-only">Processore</label>
+                    <input type="text" class="form-control" id="filtro_processore" name="processore" placeholder="Processore">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="filtro_os" class="sr-only">OS</label>
+                    <input type="text" class="form-control" id="filtro_os" name="os" placeholder="OS">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="filtro_oper_telefonico" class="sr-only">Operatore Telefonico</label>
+                    <input type="text" class="form-control" id="filtro_oper_telefonico" name="oper_telefonico" placeholder="Operatore Telefonico">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="filtro_modello" class="sr-only">Modello</label>
+                    <input type="text" class="form-control" id="filtro_modello" name="modello" placeholder="Modello">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="filtro_stato" class="sr-only">Stato</label>
+                    <input type="text" class="form-control" id="filtro_stato" name="stato" placeholder="Stato">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="filtro_disponibilita" class="sr-only">Disponibilità</label>
+                    <input type="text" class="form-control" id="filtro_disponibilita" name="disponibilita" placeholder="Disponibilità">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Filtra</button>
+                <a href="/dispositivi" class="btn btn-secondary mb-2 ml-2">Reset Filtri</a>
+            </form>
+        </section>
+
+        <!-- Visualizzazione dei dispositivi -->
+        <h2 class="mt-4">Dispositivi</h2>
+        {% if dispositivi %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Dispositivo</th>
+                    <th>SRN/ICCID</th>
+                    <th>Numero Aziendale</th>
+                    <th>Data Acquisto</th>
+                    <th>Scadenza Garanzia</th>
+                    <th>RAM</th>
+                    <th>Archiviazione</th>
+                    <th>Processore</th>
+                    <th>OS</th>
+                    <th>Operatore Telefonico</th>
+                    <th>Modello</th>
+                    <th>Stato</th>
+                    <th>Disponibilità</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dispositivo in dispositivi %}
+                <tr>
+                    <td>{{ dispositivo.dispositivo }}</td>
+                    <td>{{ dispositivo.srn_iccid }}</td>
+                    <td>{{ dispositivo.num_aziendale }}</td>
+                    <td>{{ dispositivo.data_acquisto }}</td>
+                    <td>{{ dispositivo.scad_garanzia }}</td>
+                    <td>{{ dispositivo.ram }}</td>
+                    <td>{{ dispositivo.archiviazione }}</td>
+                    <td>{{ dispositivo.processore }}</td>
+                    <td>{{ dispositivo.os }}</td>
+                    <td>{{ dispositivo.oper_telefonico }}</td>
+                    <td>{{ dispositivo.modello }}</td>
+                    <td>{{ dispositivo.stato }}</td>
+                    <td>{{ dispositivo.disponibilita }}</td>
+                    <td>{{ dispositivo.note }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Nessun dispositivo trovato.</p>
+        {% endif %}
+		      <!-- Form per eliminare dispositivo -->
+        <section class="mt-4">
+            <h2>Elimina Dispositivo</h2>
+            <form action="/dispositivi" method="post">
+                <input type="hidden" name="action" value="elimina">
+                <div class="form-group">
+                    <label for="srn_iccid_elimina">SRN/ICCID</label>
+                    <input type="text" class="form-control" id="srn_iccid_elimina" name="srn_iccid" required>
+                </div>
+                <button type="submit" class="btn btn-danger">Elimina Dispositivo</button>
+            </form>
+        </section>
+        
+        <!-- Form per modificare stato dispositivo -->
+        <section class="mt-4">
+            <h2>Modifica Stato Dispositivo</h2>
+            <form action="/dispositivi" method="post">
+                <input type="hidden" name="action" value="modifica">
+                <div class="form-group">
+                    <label for="srn_iccid_modifica">SRN/ICCID</label>
+                    <input type="text" class="form-control" id="srn_iccid_modifica" name="srn_iccid" required>
+                </div>
+                <div class="form-group">
+                    <label for="nuovo_stato">Nuovo Stato</label>
+                    <input type="text" class="form-control" id="nuovo_stato" name="nuovo_stato" required>
+                </div>
+                <button type="submit" class="btn btn-warning">Modifica Dispositivo</button>
+            </form>
+        </section>
+        
+     
+		
+        <!-- Form per aggiungere dispositivo -->
+        <h2 class="mt-4">Aggiungi Dispositivo</h2>
+        <form action="/dispositivi" method="post">
+            <input type="hidden" name="action" value="aggiungi">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="dispositivo">Dispositivo</label>
+                    <input type="text" class="form-control" id="dispositivo" name="dispositivo">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="srn_iccid">SRN/ICCID</label>
+                    <input type="text" class="form-control" id="srn_iccid" name="srn_iccid">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="num_aziendale">Numero Aziendale</label>
+                    <input type="text" class="form-control" id="num_aziendale" name="num_aziendale">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="data_acquisto">Data Acquisto</label>
+                    <input type="date" class="form-control" id="data_acquisto" name="data_acquisto">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="scad_garanzia">Scadenza Garanzia</label>
+                    <input type="date" class="form-control" id="scad_garanzia" name="scad_garanzia">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="ram">RAM</label>
+                    <input type="text" class="form-control" id="ram" name="ram">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="archiviazione">Archiviazione</label>
+                    <input type="text" class="form-control" id="archiviazione" name="archiviazione">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="processore">Processore</label>
+                    <input type="text" class="form-control" id="processore" name="processore">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="os">OS</label>
+                    <input type="text" class="form-control" id="os" name="os">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="oper_telefonico">Operatore Telefonico</label>
+                    <input type="text" class="form-control" id="oper_telefonico" name="oper_telefonico">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="modello">Modello</label>
+                    <input type="text" class="form-control" id="modello" name="modello">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="stato">Stato</label>
+                    <input type="text" class="form-control" id="stato" name="stato">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="disponibilita">Disponibilità</label>
+                    <input type="text" class="form-control" id="disponibilita" name="disponibilita">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="note">Note</label>
+                    <textarea class="form-control" id="note" name="note"></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Aggiungi Dispositivo</button>
+        </form>
+        
+  
+        
+       
+    </div>
+</body>
+</html>

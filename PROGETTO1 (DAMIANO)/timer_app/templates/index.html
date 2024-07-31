@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer Button</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div id="timer">00:00:00</div>
+        <button id="toggleButton" onclick="toggleTimer()">Start</button>
+    </div>
+    <script>
+        let timer;
+        let isRunning = false;
+        let startTime;
+        let elapsedTime = 0;
+
+        function toggleTimer() {
+            if (isRunning) {
+                clearInterval(timer);
+                elapsedTime += Date.now() - startTime;
+                document.getElementById('toggleButton').textContent = 'Start';
+                saveTime();
+            } else {
+                startTime = Date.now();
+                timer = setInterval(updateTimer, 1000);
+                document.getElementById('toggleButton').textContent = 'Stop';
+            }
+            isRunning = !isRunning;
+        }
+
+        function updateTimer() {
+            const time = Date.now() - startTime + elapsedTime;
+            const hours = Math.floor(time / (1000 * 60 * 60));
+            const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((time % (1000 * 60)) / 1000);
+            
+            document.getElementById('timer').textContent = 
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function saveTime() {
+            const timeParts = document.getElementById('timer').textContent.split(':');
+            const recordedTime = `${timeParts[0]}:${timeParts[1]}:${timeParts[2]}`;
+
+            fetch('/save_time', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ recorded_time: recordedTime })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>User Dashboard</h1>
+    <h2>Accounts</h2>
+    <table id="accountsTable" border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+    </table>
+    <h2>Devices</h2>
+    <table id="devicesTable" border="1">
+        <tr>
+            <th>ID</th>
+            <th>OS</th>
+            <th>Serial Number</th>
+            <th>Device Type</th>
+        </tr>
+    </table>
+    <h2>Attendance</h2>
+    <form id="attendanceForm">
+        <button type="button" onclick="registerAttendance('clock-in')">Clock In</button>
+        <button type="button" onclick="registerAttendance('clock-out')">Clock Out</button>
+    </form>
+    <h2>Attendance Records</h2>
+    <table id="attendanceTable" border="1">
+        <tr>
+            <th>Clock-In Time</th>
+            <th>Clock-Out Time</th>
+        </tr>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/data')
+                .then(response => response.json())
+                .then(data => {
+                    const accountsTable = document.getElementById('accountsTable');
+                    const devicesTable = document.getElementById('devicesTable');
+
+                    data.accounts.forEach(account => {
+                        const row = accountsTable.insertRow();
+                        row.insertCell(0).innerText = account.id;
+                        row.insertCell(1).innerText = account.name;
+                        row.insertCell(2).innerText = account.email;
+                        row.insertCell(3).innerText = account.role;
+                    });
+
+                    data.devices.forEach(device => {
+                        const row = devicesTable.insertRow();
+                        row.insertCell(0).innerText = device.id;
+                        row.insertCell(1).innerText = device.os;
+                        row.insertCell(2).innerText = device.serialNumber;
+                        row.insertCell(3).innerText = device.deviceType;
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+
+            updateAttendanceTable();
+        });
+
+        function registerAttendance(action) {
+            fetch('/attendance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ action: action })
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                updateAttendanceTable();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updateAttendanceTable() {
+            fetch('/attendance')
+                .then(response => response.json())
+                .then(data => {
+                    const attendanceTable = document.getElementById('attendanceTable');
+                    attendanceTable.innerHTML = '<tr><th>Clock-In Time</th><th>Clock-Out Time</th></tr>';
+                    
+                    data.attendance.forEach(record => {
+                        const row = attendanceTable.insertRow();
+                        row.insertCell(0).innerText = record.clockIn ? new Date(record.clockIn).toLocaleString() : '';
+                        row.insertCell(1).innerText = record.clockOut ? new Date(record.clockOut).toLocaleString() : '';
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Presenze</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles1.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1 class="header-title">Gestione Presenze</h1>
+            <div class="button-container">
+                <a href="/" class="button">Torna alla Homepage</a>
+                <a href="{{ url_for('logout') }}" class="welcome-button">
+                    <span>{{ email }}</span> Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sezione per visualizzare i messaggi -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="message-container">
+                {% for category, message in messages %}
+                    <div class="message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <div class="form-container">
+            <h2>Registrazione entrata</h2>
+            <form action="/aggiungi_entrata" method="post">
+                <label for="utente">Utente:</label>
+                <input type="text" id="utente" name="utente" value="{{ email }}" readonly required>
+                <label for="data_presenza">Data presenza:</label>
+                <input type="text" id="data_presenza" name="data_presenza" value="{{ data_presenza }}" readonly>
+                <label for="orario_entrata">Orario entrata:</label>
+                <input type="text" id="orario_entrata_display" value="{{ orario_entrata }}" readonly>
+                <input type="hidden" id="orario_entrata" name="orario_entrata" value="{{ orario_entrata }}">
+                <br>
+                <input type="submit" value="Registra entrata">
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h2>Registrazione uscita</h2>
+            <form action="/aggiungi_uscita" method="post">
+                <label for="utente">Utente:</label>
+                <input type="text" id="utente" name="utente" value="{{ email }}" readonly required>
+                <label for="data_presenza">Data presenza:</label>
+                <input type="text" id="data_presenza" name="data_presenza" value="{{ data_presenza }}" readonly>
+                <label for="orario_uscita">Orario uscita:</label>
+                <input type="text" id="orario_uscita_display" value="{{ orario_uscita }}" readonly>
+                <input type="hidden" id="orario_uscita" name="orario_uscita" value="{{ orario_uscita }}">
+                <br>
+                <input type="submit" value="Registra uscita">
+            </form>
+        </div>
+
+        <div class="filter-container">
+            <h2>Filtra Presenze</h2>
+            <form action="/filtra_presenze" method="post">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome">
+                <label for="data_inizio">Data Inizio:</label>
+                <input type="date" id="data_inizio" name="data_inizio" required>
+                <label for="data_fine">Data Fine:</label>
+                <input type="date" id="data_fine" name="data_fine" required>
+                <br>
+                <input type="submit" value="Filtra">
+            </form>
+        </div>
+		
+
+        <div class="form-container">
+            <h2>Registrazione Straordinario entrata</h2>
+            <form action="/aggiungi_orario_straordinario_inizio" method="post">
+                <label for="data_presenza">Data presenza:</label>
+                <input type="text" id="data_presenza" name="data_presenza" value="{{ data_presenza }}" readonly>
+                <br>
+                <input type="submit" value="Registra Inizio Straordinario">
+            </form>
+		</div>	
+		<div class="form-container">
+			<h2>Registrazione Straordinario uscita</h2>
+            <form action="/aggiungi_orario_straordinario_fine" method="post">
+                <label for="data_presenza_fine">Data presenza:</label>
+                <input type="text" id="data_presenza_fine" name="data_presenza" value="{{ data_presenza }}" readonly>
+                <br>
+                <input type="submit" value="Registra Fine Straordinario">
+            </form>
+        </div>
+		
+        <div class="form-container">
+            <h2>Gestisci Pausa</h2>
+            <form action="/toggle_pausa" method="post">
+                <input type="submit" value="Start/Stop Pausa">
+            </form>
+        </div>		
+		
+		
+    </div>
+
+    <section>
+		<h2>Presenze registrate:</h2>
+		<ul>
+			{% for presenza in presenze %}
+				<li>
+					<strong>{{ presenza['dipendente_nome'] }} {{ presenza['dipendente_cognome'] }}</strong> - {{ presenza['data_presenza'] }}<br>
+					<strong>Entrata 1:</strong> {{ presenza['orario1_entrata'] }} -
+					<strong>Uscita 1:</strong> {{ presenza['orario1_uscita'] }}<br>
+					{% if presenza['orario2_entrata'] %}
+						<strong>Entrata 2:</strong> {{ presenza['orario2_entrata'] }} -
+					{% endif %}
+					{% if presenza['orario2_uscita'] %}
+						<strong>Uscita 2:</strong> {{ presenza['orario2_uscita'] }}<br>
+					{% endif %}
+					{% if presenza['straordinario_inizio'] %}
+						<strong>Inizio Straordinario:</strong> {{ presenza['straordinario_inizio'] }} -
+					{% endif %}
+					{% if presenza['straordinario_fine'] %}
+						<strong>Fine Straordinario:</strong> {{ presenza['straordinario_fine'] }}<br>
+					{% endif %}
+					<strong>Totale ore giorno:</strong> {{ presenza['totale_ore_giorno'] }}<br>
+					<strong>Totale ore mattina:</strong> {{ presenza['totale_ore_mattina'] }}<br>
+					<strong>Totale pausa:</strong> {{ presenza['orario_pausa'] }} minuti<br>
+				</li>
+			{% endfor %}
+		</ul>
+	</section>
+
+
+</body>
+</html>

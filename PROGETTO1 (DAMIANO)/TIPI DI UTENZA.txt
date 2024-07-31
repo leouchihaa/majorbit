@@ -1,0 +1,26 @@
+TIPI DI UTENZA:
+
+.ADMIN
+ha tutti i permessi.
+
+
+.AMMINISTRATORE
+Può:
+	aggiungere, modificare, eliminare assets
+	aggiungere, modificare, eliminare nominativi
+	aggiungere, modificare, eliminare presenze
+	aggiungere, modificare, eliminare dipendenti
+	visualizzare tutti i database
+	
+
+.MANAGER
+Può:
+	richiedere assets
+	richiedere veicoli
+	registrare presenze
+
+
+.DIPENDENTE
+Può:
+	registrare presenze
+	richiedere ferie e permessi

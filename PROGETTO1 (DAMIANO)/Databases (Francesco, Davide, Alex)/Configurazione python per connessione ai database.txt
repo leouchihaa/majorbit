@@ -1,0 +1,14 @@
+import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+
+# Configura la connessione MySQL al database di Davide (gesitone degli assets)
+db_config = {
+    'host': os.getenv('MYSQL_HOST', '192.168.178.148'),
+    'port': os.getenv('MYSQL_PORT', '3308'),
+    'user': os.getenv('MYSQL_USER', 'root'),
+    'password': os.getenv('MYSQL_PASSWORD', 'my-secret-pw'),
+    'database': os.getenv('MYSQL_DATABASE', 'asset_management')
+}

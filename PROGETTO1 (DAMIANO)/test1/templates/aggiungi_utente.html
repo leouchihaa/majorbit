@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Presenze</title>
+ <!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Presenze</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles1.css') }}">
+    <header>
+        <div class="header-content">
+            <h1 class="header-title">Gestione Presenze</h1>
+            <div class="button-container">
+                <a href="http://192.168.178.147:5678/" class="button">Torna alla Homepage</a>
+                <a href="/" class="button">Presenze</a>
+                <a href="{{ url_for('logout') }}" class="welcome-button">
+                    <span>Benvenuto {{ username }}</span> Logout
+                </a>
+        </div>
+    </header>
+    <div class="container">
+        <div class="form-container">
+            <h2>Registrazione utente</h2>
+            <form action="/aggiungi_utente" method="post">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+                <br>
+                <input type="submit" value="Aggiungi utente">
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h2>Rimozione utente</h2>
+            <form action="/rimuovi_utente" method="post">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+                <br>
+                <input type="submit" value="Rimuovi utente">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

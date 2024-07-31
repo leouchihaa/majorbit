@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Gestione Dipendenti</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Gestione Dipendenti</h1>
+         <!-- Link al dashboard -->
+        <section class="mt-4">
+            <a href="/" class="btn btn-secondary">Torna al Dashboard</a>
+        </section>
+        
+             <!-- Form per filtrare dipendenti -->
+        <section>
+            <h2 class="mt-4">Filtra Dipendenti</h2>
+            <form action="/dipendenti" method="get" class="form-inline">
+                <div class="form-group mb-2">
+                    <label for="cognome" class="sr-only">Cognome</label>
+                    <input type="text" class="form-control" id="cognome" name="cognome" placeholder="Cognome">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="citta" class="sr-only">Città</label>
+                    <input type="text" class="form-control" id="citta" name="citta" placeholder="Città">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="provincia" class="sr-only">Provincia</label>
+                    <input type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="tipologia_contratto" class="sr-only">Tipologia Contratto</label>
+                    <input type="text" class="form-control" id="tipologia_contratto" name="tipologia_contratto" placeholder="Tipologia Contratto">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="data_assunzione" class="sr-only">Data di Assunzione</label>
+                    <input type="date" class="form-control" id="data_assunzione" name="data_assunzione">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="ruolo" class="sr-only">Ruolo</label>
+                    <input type="text" class="form-control" id="ruolo" name="ruolo" placeholder="Ruolo">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Filtra</button>
+                <a href="/dipendenti" class="btn btn-secondary mb-2 ml-2">Reset Filtri</a>
+            </form>
+        </section>
+
+         <!-- Visualizzazione dei dipendenti -->
+        <h2 class="mt-4">Dipendenti</h2>
+        {% if dipendenti %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <!-- <th>ID</th> Nascondere ID -->
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Codice Fiscale</th>
+                    <th>Data di Nascita</th>
+                    <th>Città</th>
+                    <th>Provincia</th>
+                    <th>Via</th>
+                    <th>Email</th>
+                    <th>Telefono1</th>
+                    <th>Telefono2</th>
+                    <th>Tipologia Contratto</th>
+                    <th>Data Assunzione</th>
+                    <th>Scadenza Contratto</th>
+                    <th>Stipendio</th>
+                    <th>Ruolo</th>
+                    <th>Sede Azienda</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dipendente in dipendenti %}
+                <tr>
+                    <!-- <td>{{ dipendente.id }}</td> Nascondere ID -->
+                    <td>{{ dipendente.nome }}</td>
+                    <td>{{ dipendente.cognome }}</td>
+                    <td>{{ dipendente.cod_fisc }}</td>
+                    <td>{{ dipendente.data_nascita }}</td>
+                    <td>{{ dipendente.citta }}</td>
+                    <td>{{ dipendente.provincia }}</td>
+                    <td>{{ dipendente.via }}</td>
+                    <td>{{ dipendente.email }}</td>
+                    <td>{{ dipendente.telefono1 }}</td>
+                    <td>{{ dipendente.telefono2 }}</td>
+                    <td>{{ dipendente.tipologia_contratto }}</td>
+                    <td>{{ dipendente.data_assunzione }}</td>
+                    <td>{{ dipendente.scadenza_contratto }}</td>
+                    <td>{{ dipendente.stipendio }}</td>
+                    <td>{{ dipendente.ruolo }}</td>
+                    <td>{{ dipendente.sede_azienda }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Nessun dipendente trovato.</p>
+        {% endif %}
+       <!-- Form per aggiungere dipendente -->
+        <section>
+            <h2>Aggiungi Dipendente</h2>
+            <form action="/dipendenti" method="post">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="cognome">Cognome</label>
+                    <input type="text" class="form-control" id="cognome" name="cognome" required>
+                </div>
+                <div class="form-group">
+                    <label for="cod_fisc">Codice Fiscale</label>
+                    <input type="text" class="form-control" id="cod_fisc" name="cod_fisc" required>
+                </div>
+                <div class="form-group">
+                    <label for="data_nascita">Data di Nascita</label>
+                    <input type="date" class="form-control" id="data_nascita" name="data_nascita" required>
+                </div>
+                <div class="form-group">
+                    <label for="citta">Città</label>
+                    <input type="text" class="form-control" id="citta" name="citta" required>
+                </div>
+                <div class="form-group">
+                    <label for="provincia">Provincia</label>
+                    <input type="text" class="form-control" id="provincia" name="provincia" required>
+                </div>
+                <div class="form-group">
+                    <label for="via">Via</label>
+                    <input type="text" class="form-control" id="via" name="via" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono1">Telefono 1</label>
+                    <input type="text" class="form-control" id="telefono1" name="telefono1" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono2">Telefono 2</label>
+                    <input type="text" class="form-control" id="telefono2" name="telefono2">
+                </div>
+                <div class="form-group">
+                    <label for="tipologia_contratto">Tipologia Contratto</label>
+                    <input type="text" class="form-control" id="tipologia_contratto" name="tipologia_contratto" required>
+                </div>
+                <div class="form-group">
+                    <label for="data_assunzione">Data di Assunzione</label>
+                    <input type="date" class="form-control" id="data_assunzione" name="data_assunzione" required>
+                </div>
+                <div class="form-group">
+                    <label for="scadenza_contratto">Scadenza Contratto</label>
+                    <input type="date" class="form-control" id="scadenza_contratto" name="scadenza_contratto">
+                </div>
+                <div class="form-group">
+                    <label for="stipendio">Stipendio</label>
+                    <input type="number" class="form-control" id="stipendio" name="stipendio">
+                </div>
+                <div class="form-group">
+                    <label for="ruolo">Ruolo</label>
+                    <input type="text" class="form-control" id="ruolo" name="ruolo" required>
+                </div>
+                <div class="form-group">
+                    <label for="sede_azienda">Sede Azienda</label>
+                    <input type="text" class="form-control" id="sede_azienda" name="sede_azienda" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Aggiungi Dipendente</button>
+            </form>
+        </section>
+        
+    </div>
+</body>
+</html>

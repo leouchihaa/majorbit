@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richiesta Asset</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        textarea, input[type="date"], select, input[type="submit"] {
+            width: 100%;
+            margin-top: 5px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        #asset-list {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <script>
+        async function fetchAssetList(assetType) {
+            const response = await fetch(`/get-assets/${assetType}`);
+            const assets = await response.json();
+
+            const assetListDiv = document.getElementById('asset-list');
+            let assetListHtml = `<h3>Lista degli asset (${assetType}):</h3>`;
+            if (assets.length === 0) {
+                assetListHtml += '<p>Nessun asset disponibile</p>';
+            } else {
+                assetListHtml += '<ul>';
+                assets.forEach(asset => {
+                    assetListHtml += `<li>${asset.name} - ${asset.status}</li>`;
+                });
+                assetListHtml += '</ul>';
+            }
+            assetListDiv.innerHTML = assetListHtml;
+        }
+
+        async function submitForm(event) {
+            event.preventDefault();
+            const assetType = document.getElementById('asset-type').value;
+            const motivation = document.getElementById('motivation').value;
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+
+            const response = await fetch('/request-asset', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    asset_type: assetType,
+                    motivation: motivation,
+                    start_date: startDate,
+                    end_date: endDate
+                })
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message);
+            } else {
+                alert(result.error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Richiesta Asset</h1>
+        <form onsubmit="submitForm(event)">
+            <label for="asset-type">Seleziona l'asset desiderato:</label>
+            <select id="asset-type" name="asset-type" onchange="fetchAssetList(this.value)">
+                <option value="pc">PC</option>
+                <option value="smartphone">Smartphone</option>
+                <option value="macchina">Macchina aziendale</option>
+            </select>
+
+            <label for="motivation">Motivazione:</label>
+            <textarea id="motivation" name="motivation" rows="4"></textarea>
+
+            <label for="start-date">Data di inizio:</label>
+            <input type="date" id="start-date" name="start-date">
+
+            <label for="end-date">Data di fine:</label>
+            <input type="date" id="end-date" name="end-date">
+
+            <input type="submit" value="Submit">
+        </form>
+        
+        <div id="asset-list">
+            <!-- Lista degli asset sarà visualizzata qui -->
+        </div>
+    </div>
+</body>
+</html>

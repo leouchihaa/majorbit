@@ -1,0 +1,17 @@
+IPs di Zerotier (per accedere ai containers altrui)
+
+192.168.195.204 - Damiano
+192.168.195.200 - Leo
+192.168.195.187 - Patri
+192.168.195.172 - Marco
+192.168.195.47 - Emiliano
+192.168.195.175 - Federico
+192.168.195.60 - Alex
+192.168.195.69 - Michele
+192.168.195.223 - Catalin
+192.168.195.67 - Francesco
+192.168.195.239 - Cristiano
+192.168.195.31 - Davide
+
+
+*TUTTI POSSONO AGGIUNGERE FILE NELLA CARTELLA*

@@ -1,0 +1,17 @@
+lo script restituisce una pagina web con la seguente interfaccia:
+
+- Titolo della pagina = Richiesta Asset
+- Menu a discesa per selezionare l'asset desiderato a scelta tra pc, smartphone e macchina aziendale.
+- Una casella di text box di motivazione dalla richiesta dell'asset
+-  Due caselle per selezionare rispettivamente la data di inizio e la data di fine della richiesta relativa all'asset selezionato
+- un pulsante chiamato 'sudmit' che invii la richiesta per l'asset selezionato via mail al responsabile degli asset dell'azienda.
+- uno spazio vuoto dove verranno visualizzati, facendo riferimento ad un database precedentemente creato e riempito con dei valori,
+la lista di tutti gli asset del tipo selezionato, sia quelli già assegnati sia quelli disponibili al momento.
+
+
+Lo script in Phyton permette di implementare le seguenti funzionalità:
+
+-invio automatico della mail al respondibile degli asset dell'azienda, per la richiesta dell'asset selezionato.
+- integrazione con database esistente(creato con MySql Workbench) per il recupero dei dati relativi ai dipendenti e ai loro asset, in tempo reale
+
+NB: eseguire il seguente comando per integrazione con DB e invio mail ------  pip install Flask flask-mail mysql-connector-python

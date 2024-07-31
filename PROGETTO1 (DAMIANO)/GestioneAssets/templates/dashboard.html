@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Admin Dashboard</h1>
+        
+        <h2 class="mt-4">Gestione Dispositivi</h2>
+        <form action="/dispositivi" method="post">
+            <input type="hidden" name="action" value="aggiungi">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="dispositivo">Dispositivo</label>
+                    <input type="text" class="form-control" id="dispositivo" name="dispositivo">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="srn_iccid">SRN/ICCID</label>
+                    <input type="text" class="form-control" id="srn_iccid" name="srn_iccid">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="num_aziendale">Numero Aziendale</label>
+                    <input type="text" class="form-control" id="num_aziendale" name="num_aziendale">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="data_acquisto">Data Acquisto</label>
+                    <input type="date" class="form-control" id="data_acquisto" name="data_acquisto">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="scad_garanzia">Scadenza Garanzia</label>
+                    <input type="date" class="form-control" id="scad_garanzia" name="scad_garanzia">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="ram">RAM</label>
+                    <input type="text" class="form-control" id="ram" name="ram">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="archiviazione">Archiviazione</label>
+                    <input type="text" class="form-control" id="archiviazione" name="archiviazione">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="processore">Processore</label>
+                    <input type="text" class="form-control" id="processore" name="processore">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="os">OS</label>
+                    <input type="text" class="form-control" id="os" name="os">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="oper_telefonico">Operatore Telefonico</label>
+                    <input type="text" class="form-control" id="oper_telefonico" name="oper_telefonico">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="modello">Modello</label>
+                    <input type="text" class="form-control" id="modello" name="modello">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="stato">Stato</label>
+                    <input type="text" class="form-control" id="stato" name="stato">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="disponibilita">Disponibilità</label>
+                    <input type="text" class="form-control" id="disponibilita" name="disponibilita">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="note">Note</label>
+                    <textarea class="form-control" id="note" name="note"></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Aggiungi Dispositivo</button>
+        </form>
+
+        <form action="/dispositivi" method="post" class="mt-4">
+            <input type="hidden" name="action" value="elimina">
+            <div class="form-group">
+                <label for="srn_iccid_elimina">SRN/ICCID</label>
+                <input type="text" class="form-control" id="srn_iccid_elimina" name="srn_iccid">
+            </div>
+            <button type="submit" class="btn btn-danger">Elimina Dispositivo</button>
+        </form>
+
+        <form action="/dispositivi" method="post" class="mt-4">
+            <input type="hidden" name="action" value="modifica">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="srn_iccid_modifica">SRN/ICCID</label>
+                    <input type="text" class="form-control" id="srn_iccid_modifica" name="srn_iccid">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="nuovo_stato">Nuovo Stato</label>
+                    <input type="text" class="form-control" id="nuovo_stato" name="nuovo_stato">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-warning">Modifica Dispositivo</button>
+        </form>
+
+        <h2 class="mt-4">Aggiungi Presenze</h2>
+        <form action="/presenze" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="id_dipendente">ID Dipendente</label>
+                    <input type="text" class="form-control" id="id_dipendente" name="id">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="data_presenza">Data Presenza</label>
+                    <input type="date" class="form-control" id="data_presenza" name="data_presenza">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="orario1_entrata">Orario Entrata 1</label>
+                    <input type="time" class="form-control" id="orario1_entrata" name="orario1_entrata">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="orario1_uscita">Orario Uscita 1</label>
+                    <input type="time" class="form-control" id="orario1_uscita" name="orario1_uscita">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="orario2_entrata">Orario Entrata 2</label>
+                    <input type="time" class="form-control" id="orario2_entrata" name="orario2_entrata">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="orario2_uscita">Orario Uscita 2</label>
+                    <input type="time" class="form-control" id="orario2_uscita" name="orario2_uscita">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Aggiungi Presenza</button>
+        </form>
+
+        <h2 class="mt-4">Visualizza Tutto (Sede)</h2>
+        <form action="/sede" method="get">
+            <div class="form-group">
+                <label for="sede">Sede Azienda</label>
+                <input type="text" class="form-control" id="sede" name="sede">
+            </div>
+            <button type="submit" class="btn btn-info">Visualizza</button>
+        </form>
+
+        <!-- Visualizzazione dei dispositivi -->
+        <h2 class="mt-4">Dispositivi</h2>
+        {% if dispositivi %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Dispositivo</th>
+                    <th>SRN/ICCID</th>
+                    <th>Numero Aziendale</th>
+                    <th>Data Acquisto</th>
+                    <th>Scadenza Garanzia</th>
+                    <th>RAM</th>
+                    <th>Archiviazione</th>
+                    <th>Processore</th>
+                    <th>OS</th>
+                    <th>Operatore Telefonico</th>
+                    <th>Modello</th>
+                    <th>Stato</th>
+                    <th>Disponibilità</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dispositivo in dispositivi %}
+                <tr>
+                    <td>{{ dispositivo.dispositivo }}</td>
+                    <td>{{ dispositivo.srn_iccid }}</td>
+                    <td>{{ dispositivo.num_aziendale }}</td>
+                    <td>{{ dispositivo.data_acquisto }}</td>
+                    <td>{{ dispositivo.scad_garanzia }}</td>
+                    <td>{{ dispositivo.ram }}</td>
+                    <td>{{ dispositivo.archiviazione }}</td>
+                    <td>{{ dispositivo.processore }}</td>
+                    <td>{{ dispositivo.os }}</td>
+                    <td>{{ dispositivo.oper_telefonico }}</td>
+                    <td>{{ dispositivo.modello }}</td>
+                    <td>{{ dispositivo.stato }}</td>
+                    <td>{{ dispositivo.disponibilita }}</td>
+                    <td>{{ dispositivo.note }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Nessun dispositivo trovato.</p>
+        {% endif %}
+        
+        <!-- Visualizzazione dei dipendenti -->
+        <h2 class="mt-4">Dipendenti</h2>
+        {% if dipendenti %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Codice Fiscale</th>
+                    <th>Data di Nascita</th>
+                    <th>Città</th>
+                    <th>Provincia</th>
+                    <th>Via</th>
+                    <th>Email</th>
+                    <th>Telefono1</th>
+                    <th>Telefono2</th>
+                    <th>Tipologia Contratto</th>
+                    <th>Data Assunzione</th>
+                    <th>Scadenza Contratto</th>
+                    <th>Stipendio</th>
+                    <th>Ruolo</th>
+                    <th>Sede Azienda</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dipendente in dipendenti %}
+                <tr>
+                    <td>{{ dipendente.id }}</td>
+                    <td>{{ dipendente.nome }}</td>
+                    <td>{{ dipendente.cognome }}</td>
+                    <td>{{ dipendente.cod_fisc }}</td>
+                    <td>{{ dipendente.data_nascita }}</td>
+                    <td>{{ dipendente.citta }}</td>
+                    <td>{{ dipendente.provincia }}</td>
+                    <td>{{ dipendente.via }}</td>
+                    <td>{{ dipendente.email }}</td>
+                    <td>{{ dipendente.telefono1 }}</td>
+                    <td>{{ dipendente.telefono2 }}</td>
+                    <td>{{ dipendente.tipologia_contratto }}</td>
+                    <td>{{ dipendente.data_assunzione }}</td>
+                    <td>{{ dipendente.scadenza_contratto }}</td>
+                    <td>{{ dipendente.stipendio }}</td>
+                    <td>{{ dipendente.ruolo }}</td>
+                    <td>{{ dipendente.sede_azienda }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Nessun dipendente trovato.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
